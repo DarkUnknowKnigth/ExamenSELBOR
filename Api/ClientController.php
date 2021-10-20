@@ -6,7 +6,10 @@
     public function __construct()
     {
       $this->clienteDAO = new Cliente();
-    }
+    } 
+    /** 
+     * Listando a todos los clientes
+    */
     public function index(){
       $requestMethod = $_SERVER["REQUEST_METHOD"];
       $clientes = array();
@@ -24,6 +27,10 @@
       }
 
     }
+     /** 
+     * Listando pidiendo a un cliente en especifico
+     * @param $cliente
+    */
     public function show(){
       $requestMethod = $_SERVER["REQUEST_METHOD"];
       $cliente = array();
@@ -48,6 +55,10 @@
         $this->sendOutput($error['message'], $error['headers']);
       }
     }
+     /** 
+     * Creando un cliente
+     * @param $cliente (fillable)
+    */
     public function create(){
       $requestMethod = $_SERVER["REQUEST_METHOD"];
       $cliente = array();
@@ -82,6 +93,10 @@
         $this->sendOutput($error['message'], $error['headers']);
       }
     }
+    /** 
+     * Eliminar un cliente
+     * @param $cliente (fillable)
+    */
     public function destroy(){
       $requestMethod = $_SERVER["REQUEST_METHOD"];
       $id = isset($_POST['id'])? $_POST['id']: 0;

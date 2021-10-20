@@ -68,6 +68,7 @@
             <th class="font-bold">fecha de pedido</th>
             <th class="font-bold">vendedor</th>
             <th class="font-bold">region</th>
+            <th class="font-light text-indigo-500">Acciones</th>
           </tr>
         </thead>
         <tbody>
@@ -81,6 +82,13 @@
               <td class="font-light text-center p-2" x-text="cliente.fecha_pedido"></td>
               <td class="font-light text-center p-2" x-text="cliente.vendedor"></td>
               <td class="font-light text-center p-2" x-text="cliente.region"></td>
+              <td class="font-light text-center p-2">
+                <button class="px-2 py-2" @click="destroy(cliente.id)">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                  </svg>
+                </button>
+              </td>
             </tr>
           </template>
         </tbody>
@@ -113,7 +121,6 @@
               var encodedValue = encodeURIComponent(this.cliente[key]);
               body.push(encodedKey + "=" + encodedValue);
             }); 
-            console.log(body);
             const resp = await fetch('index.php/clientes/create',{
               method: 'POST',
               headers: {
@@ -123,9 +130,7 @@
             });
             const content = await resp.json();
             if(content.id){
-              const clientResp = await fetch(`index.php/clientes/index?page=${this.page}`)
-              const clientes = await clientResp.json();
-              this.clientes = clientes;
+              this.fetchPage();
               this.showCreate = false;
               this.message = 'Cliente creado';
             }else{
@@ -136,9 +141,26 @@
             },5000);
           },
           async fetchPage(){
-            const clientResp = await fetch(`index.php/clientes/index?page=${this.page}`)
+            const clientResp = await fetch(`index.php/clientes/index?page=${this.page}`);
             const clientes = await clientResp.json();
             this.clientes = clientes;
+          },
+          async destroy(id){
+            const resp = await fetch('index.php/clientes/destroy',{
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+              },
+              body: `id=${id}`
+            });
+            const content = await resp.json();
+            if(content.id){
+              this.fetchPage();
+              this.showCreate = false;
+              this.message = 'Cliente eliminado';
+            }else{
+              this.message = 'Error al eliminar cliente';
+            }
           },
           next(){
             this.page ++;
