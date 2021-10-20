@@ -1,6 +1,8 @@
 <?php 
   require_once(__ROOT__.'/examen/Database/Database.php');
+  // OBJECT DAO
   class Cliente extends Database {
+    // Campos permitidos al llenar
     protected $fillable = [
       'nombre',
       'direccion',
@@ -11,6 +13,7 @@
       'region',
     ];
     private $limit_per_page = 10;
+    // TODO los datos paginados
     function all($page = 1){
       $page = ($page - 1) * $this->limit_per_page;
       $query = $this
@@ -37,6 +40,7 @@
         return [];
       }
     }
+    // Un registro en especifico
     function findByID($id){
       if(isset($id) && intval($id) <= 0){
         return [];
@@ -59,6 +63,7 @@
         return null;
       }
     }
+    // ultimo registro
     function lastId(){
       $stmt = $this->connect()->prepare("SELECT MAX(id) as last_id FROM clientes");
       $stmt->execute();
@@ -69,6 +74,7 @@
         return null;
       }
     }
+    // Insertar nuevo registro
     function create(array $clientProperties){
       $now = date('Y-m-d H:i:s');
       $query = "INSERT INTO clientes (nombre, direccion, pais, telefono, fecha_pedido, vendedor, region ) 
@@ -76,6 +82,7 @@
       $stmt = $this->connect()->prepare($query);
       return $stmt->execute($clientProperties);
     }
+    // Eliminar por id
     function destroy($id){
       if(isset($id) && intval($id) <= 0){
         return false;

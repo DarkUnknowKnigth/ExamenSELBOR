@@ -27,6 +27,6 @@ ALTER TABLE examen.facturas ADD CONSTRAINT fk_cliente_facturas FOREIGN KEY (clie
   REFERENCES examen.clientes (id)
   ON DELETE CASCADE
   ON UPDATE CASCADE;
-
--- CREATE USER 'dany' IDENTIFIED BY 'dany1234';
--- GRANT ALL PRIVILEGES ON `examen` . * TO 'dany';
+-- USUARIO
+CREATE USER 'dany' IDENTIFIED BY 'dany1234';
+GRANT ALL PRIVILEGES ON `examen` . * TO 'dany';
