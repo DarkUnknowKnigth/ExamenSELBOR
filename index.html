@@ -136,9 +136,7 @@
             }else{
               this.message = 'Error al crear cliente';
             }
-            setTimeout(()=>{
-              this.message = '';
-            },5000);
+            this.timerMessage();
           },
           async fetchPage(){
             const clientResp = await fetch(`index.php/clientes/index?page=${this.page}`);
@@ -161,6 +159,12 @@
             }else{
               this.message = 'Error al eliminar cliente';
             }
+            this.timerMessage();
+          },
+          timerMessage(){
+            setTimeout(()=>{
+              this.message = '';
+            },5000);
           },
           next(){
             this.page ++;
