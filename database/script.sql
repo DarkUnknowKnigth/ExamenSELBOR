@@ -1,7 +1,7 @@
 
 DROP DATABASE IF EXISTS examen;
 CREATE DATABASE examen;
-
+-- TABLES
 CREATE TABLE examen.clientes
 (
   id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -22,5 +22,11 @@ CREATE TABLE examen.facturas
   descuento FLOAT(3,2),
   vendedor VARCHAR(50)
 );
+-- RELATIONSHIPS
+ALTER TABLE examen.facturas ADD CONSTRAINT fk_cliente_facturas FOREIGN KEY (cliente_id)
+  REFERENCES examen.clientes (id)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE;
+
 -- CREATE USER 'dany' IDENTIFIED BY 'dany1234';
 -- GRANT ALL PRIVILEGES ON `examen` . * TO 'dany';
