@@ -1,5 +1,5 @@
 <?php 
-  require_once(__ROOT__.'/examen/Database/Database.php');
+  require_once(__ROOT__.'/Database/Database.php');
   // OBJECT DAO
   class Cliente extends Database {
     // Campos permitidos al llenar

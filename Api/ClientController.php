@@ -1,6 +1,6 @@
 <?php
-  require_once(__ROOT__.'/examen/Api/BaseController.php');
-  require_once(__ROOT__.'/examen/Database/Models/Cliente.php');
+  require_once(__ROOT__.'/Api/BaseController.php');
+  require_once(__ROOT__.'/Database/Models/Cliente.php');
   class ClientController extends BaseController {
     private $clienteDAO = null;
     public function __construct()
